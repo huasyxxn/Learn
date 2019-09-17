@@ -4,18 +4,23 @@ import org.apache.flink.api.common.functions.RichMapFunction;
 import org.apache.flink.configuration.Configuration;
 import org.apache.hadoop.hbase.client.Put;
 import org.json.JSONObject;
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.JedisPoolConfig;
+import redis.clients.jedis.*;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class Account2PutMapFunction extends RichMapFunction<String,Put> {
-    private JedisPool jedisPool;
+    private JedisCluster jedisCluster;
 
     @Override
     public void open(Configuration config){
-        JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
-        jedisPoolConfig.setMaxTotal(10);
-        jedisPool = new JedisPool(jedisPoolConfig,"10.80.28.154",6379);
+        Set<HostAndPort> nodes = new HashSet<>();
+        nodes.add(new HostAndPort("10.80.28.154",6379));
+        nodes.add(new HostAndPort("10.80.29.154",6379));
+        nodes.add(new HostAndPort("10.80.30.154",6379));
+        nodes.add(new HostAndPort("10.80.31.154",6379));
+        nodes.add(new HostAndPort("10.80.32.154",6379));
+        jedisCluster = new JedisCluster(nodes);
     }
 
     /**
@@ -26,11 +31,14 @@ public class Account2PutMapFunction extends RichMapFunction<String,Put> {
     @Override
     public Put map(String data) throws Exception {
         JSONObject dataJson = new JSONObject(data);
-        Put put = new Put(dataJson.getString("eAccountId").getBytes());
+        Put put = new Put(Integer.toString(dataJson.getInt("eAccountId")).getBytes());
         put.addColumn("f".getBytes(),"accountData".getBytes(),data.getBytes());
-        Jedis jedis = jedisPool.getResource();
-        jedis.set(dataJson.getString("eAccountId"),data);
-        jedis.close();
+        jedisCluster.set("account_"+Integer.toString(dataJson.getInt("eAccountId")),data);
         return put;
+    }
+
+    @Override
+    public void close(){
+        jedisCluster.close();
     }
 }
