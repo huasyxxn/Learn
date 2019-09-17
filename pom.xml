@@ -83,6 +83,11 @@
             <version>1.6.1</version>
             <!--<scope>provided</scope>-->
         </dependency>
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-connector-filesystem_2.11</artifactId>
+            <version>1.6.1</version>
+        </dependency>
 
         <dependency>
             <groupId>org.apache.hbase</groupId>
@@ -148,8 +153,8 @@
     <build>
 
         <!--scala待编译的文件目录-->
-        <sourceDirectory>src/main/scala</sourceDirectory>
-        <testSourceDirectory>src/main/scala</testSourceDirectory>
+        <sourceDirectory>src/main/java</sourceDirectory>
+        <testSourceDirectory>src/main/java</testSourceDirectory>
         <plugins>
             <plugin>
                 <groupId>net.alchim31.maven</groupId>
