@@ -11,7 +11,7 @@ import com.huangys.algorithm.constant.Constants;
  * 若两指针不重合，交换
  * 若两指针重合，返回
  *
- * O(n*logN)
+ * O(n*logN) O(n^2)(最坏情况下)
  */
 public class FastSort extends Sort<int[]> {
     @Override
