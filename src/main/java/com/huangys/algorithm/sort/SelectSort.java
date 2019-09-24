@@ -31,6 +31,7 @@ public class SelectSort extends Sort<int []> {
             unSortedSet[minIndex] = tmp;
 
             display(unSortedSet);
+            reset(1000);
         }
 
         display(unSortedSet);
@@ -38,6 +39,7 @@ public class SelectSort extends Sort<int []> {
 
     public static void main(String[] args) {
         SelectSort selectSort = new SelectSort();
+        selectSort.setFrame();
         selectSort.sort(Constants.unSortedIntArray);
     }
 }

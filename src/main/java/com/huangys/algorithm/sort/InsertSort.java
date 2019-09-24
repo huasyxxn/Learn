@@ -19,8 +19,10 @@ public class InsertSort extends Sort<int []>{
             while (index >0 && unSortedSet[index - 1]>tmpValue){
                 unSortedSet[index] = unSortedSet[index - 1];
                 index -- ;
+                reset(500);
             }
             unSortedSet[index] = tmpValue;
+            reset(500);
             display(unSortedSet);
         }
         display(unSortedSet);
@@ -28,6 +30,7 @@ public class InsertSort extends Sort<int []>{
 
     public static void main(String[] args) {
         InsertSort insertSort = new InsertSort();
+        insertSort.setFrame();
         insertSort.sort(Constants.unSortedIntArray);
     }
 }

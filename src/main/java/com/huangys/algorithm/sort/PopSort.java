@@ -18,14 +18,18 @@ public class PopSort extends Sort<int[]>{
                     int tmp = unSortedSet[j];
                     unSortedSet[j] = unSortedSet[j+1];
                     unSortedSet[j+1] = tmp;
+
                 }
+                reset(100);
             }
         }
         display(unSortedSet);
     }
 
+
     public static void main(String[] args) {
         PopSort popSort = new PopSort();
+        popSort.setFrame();
         popSort.sort(Constants.unSortedIntArray);
     }
 }

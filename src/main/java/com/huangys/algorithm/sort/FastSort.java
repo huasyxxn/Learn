@@ -48,11 +48,13 @@ public class FastSort extends Sort<int[]> {
             unSortedSet[right] = unSortedSet[left];
             unSortedSet[left] = tmp;
             display(unSortedSet,start,end);
+            reset(1000);
         }
         display(unSortedSet,start,end);
         System.out.println("-------------------");
         sort(unSortedSet,start,right);
         sort(unSortedSet,right+1,end);
+        reset(1000);
     }
 
     int select(int[] unSortedSet,int start,int end,int index){
@@ -91,8 +93,10 @@ public class FastSort extends Sort<int[]> {
 
     public static void main(String[] args) {
         FastSort fastSort = new FastSort();
-//        fastSort.sort(Constants.unSortedIntArray);
-        int i = fastSort.select(Constants.unSortedIntArray,0,Constants.unSortedIntArray.length-1,2);
-        System.out.println(Constants.unSortedIntArray[i]);
+        fastSort.setFrame();
+//        fastSort.stepOver();
+        fastSort.sort(Constants.unSortedIntArray);
+//        int i = fastSort.select(Constants.unSortedIntArray,0,Constants.unSortedIntArray.length-1,2);
+//        System.out.println(Constants.unSortedIntArray[i]);
     }
 }
